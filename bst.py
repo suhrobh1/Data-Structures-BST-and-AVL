@@ -21,7 +21,7 @@ class BSTNode:
         Initialize a new BST node
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
-        self.value = value   # to store node's data
+        self.value = value   # to store node's value
         self.left = None     # pointer to root of left subtree
         self.right = None    # pointer to root of right subtree
 
@@ -105,11 +105,63 @@ class BST:
 
     # ------------------------------------------------------------------ #
 
-    def add(self, value: object) -> None:
+    def add(self, value: object, current_node=None) -> None:
         """
         TODO: Write your implementation
         """
-        pass
+        # temp = self._root
+        # if current_node:
+        #
+        #     self._root = current_node
+        #
+        # if self._root:
+        #     if self._root.value == value:
+        #         self._root.right = value
+        #
+        #     elif self._root.value > value:
+        #         if self._root.left:
+        #             return self.add(value, self._root.left)
+        #         else:
+        #             self._root.left = BSTNode(value)
+        #
+        #     else:
+        #         if self._root.right:
+        #             return self.add(value, self._root.right)
+        #         else:
+        #             self._root.right = BSTNode(value)
+        #     self._root = temp
+        #
+        # else:
+        #     self._root = BSTNode(value)
+
+        new_node = BSTNode(value)
+        if self._root is None:
+            self._root = new_node
+            return
+
+        node = self._root
+        while(True):
+            if(self._root.value <= value):
+
+                if node.right is None:
+                    # print("right")
+                    node.right = new_node
+                    break
+                node = node.right
+            else:
+
+                if node.left is None:
+                    # print("left")
+                    node.left = new_node
+                    break
+                node = node.left
+
+
+
+
+        
+        
+
 
     def remove(self, value: object) -> bool:
         """
