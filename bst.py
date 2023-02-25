@@ -135,31 +135,25 @@ class BST:
 
         if self._root is None:
             self._root = BSTNode(value)
-            print(self.is_valid_bst())
+            # print(self.is_valid_bst())
             return
         node = self._root
         while node is not None:
             if value < node.value:
                 if node.left is None:
                     node.left = BSTNode(value)
-                    print(self.is_valid_bst())
+                    # print(self.is_valid_bst())
                     return
                 else:
                     node = node.left
             else:
                 if node.right is None:
                     node.right = BSTNode(value)
-                    print(self.is_valid_bst())
+                    # print(self.is_valid_bst())
                     return
                 else:
                     node = node.right
 
-
-
-
-
-
-        
 
     def find(self, value):
         node = self._root
