@@ -110,85 +110,67 @@ class BST:
         TODO: Write your implementation
         """
 
-        if self._root == None:
+    #     if self._root == None:
+    #         self._root = BSTNode(value)
+    #     else:
+    #         self._add(value, self._root)
+    #
+    # def _add(self, value, cur_node):
+    #
+    #     if value < cur_node.value:
+    #         if cur_node.left == None:
+    #             cur_node.left = BSTNode(value)
+    #             # cur_node.left.parent=cur_node # set parent
+    #         else:
+    #             self._add(value, cur_node.left)
+    #     elif value >= cur_node.value:
+    #         if cur_node.right == None:
+    #             cur_node.right = BSTNode(value)
+    #             # cur_node.right.parent=cur_node # set parent
+    #         else:
+    #             self._add(value, cur_node.right)
+
+
+        # parent_node = None
+
+        if self._root is None:
             self._root = BSTNode(value)
-        else:
-            self._insert(value, self._root)
-
-    def _insert(self, value, cur_node):
-
-        if value < cur_node.value:
-            if cur_node.left == None:
-                cur_node.left = BSTNode(value)
-                # cur_node.left.parent=cur_node # set parent
+            print(self.is_valid_bst())
+            return
+        node = self._root
+        while node is not None:
+            if value < node.value:
+                if node.left is None:
+                    node.left = BSTNode(value)
+                    print(self.is_valid_bst())
+                    return
+                else:
+                    node = node.left
             else:
-                self._insert(value, cur_node.left)
-        elif value >= cur_node.value:
-            if cur_node.right == None:
-                cur_node.right = BSTNode(value)
-                # cur_node.right.parent=cur_node # set parent
-            else:
-                self._insert(value, cur_node.right)
-        # print(self.is_valid_bst())
-        #
+                if node.right is None:
+                    node.right = BSTNode(value)
+                    print(self.is_valid_bst())
+                    return
+                else:
+                    node = node.right
 
 
 
 
 
 
-        # temp = self._root
-        # if current_node:
-        #
-        #     self._root = current_node
-        #
-        # if self._root:
-        #     if self._root.value == value:
-        #         self._root.right = value
-        #
-        #     elif self._root.value > value:
-        #         if self._root.left:
-        #             return self.add(value, self._root.left)
-        #         else:
-        #             self._root.left = BSTNode(value)
-        #
-        #     else:
-        #         if self._root.right:
-        #             return self.add(value, self._root.right)
-        #         else:
-        #             self._root.right = BSTNode(value)
-        #     self._root = temp
-        #
-        # else:
-        #     self._root = BSTNode(value)
-        #
-        # new_node = BSTNode(value)
-        # if self._root is None:
-        #     self._root = new_node
-        #     return
-        #
-        # node = self._root
-        # while(True):
-        #     if(self._root.value <= value):
-        #
-        #         if node.right is None:
-        #             # print("right")
-        #             node.right = new_node
-        #             break
-        #         node = node.right
-        #     else:
-        #
-        #         if node.left is None:
-        #             # print("left")
-        #             node.left = new_node
-        #             break
-        #         node = node.left
-        #
-        #
-        #
-        #
-        #
         
+
+    def find(self, value):
+        node = self._root
+        while node is not None:
+            if node.value == value:
+                return True
+            elif value < node.value:
+                node = node.left
+            else:
+                node = node.right
+        return False
 
 
     def remove(self, value: object) -> bool:
@@ -298,16 +280,41 @@ if __name__ == '__main__':
         print('INPUT  :', case)
         print('RESULT :', tree)
 
-    print("\nPDF - method add() example 3")
-    print("----------------------------")
-    for _ in range(100):
-        case = list(set(random.randrange(1, 20000) for _ in range(900)))
-        tree = BST()
-        for value in case:
-            tree.add(value)
-        if not tree.is_valid_bst():
-            raise Exception("PROBLEM WITH ADD OPERATION")
-    print('add() stress test finished')
+    # print("\nPDF - method add() example 3")
+    # print("----------------------------")
+    # for _ in range(100):
+    #     case = list(set(random.randrange(1, 20000) for _ in range(900)))
+    #     tree = BST()
+    #     for value in case:
+    #         tree.add(value)
+    #     if not tree.is_valid_bst():
+    #         raise Exception("PROBLEM WITH ADD OPERATION")
+    # print('add() stress test finished')
+
+
+    print("----------FIND START------------")
+    inputArray = (5, 4, 6, 3, 7, 2, 8)
+
+    tree = BST()
+
+    for item in inputArray:
+        tree.add(item)
+    print(tree)
+
+    print(tree.find(1))
+    print(tree.find(3))
+    print(tree.find(0))
+    print(tree.find(99))
+
+    print("----------FIND END------------")
+
+
+
+
+
+
+
+
 
     print("\nPDF - method remove() example 1")
     print("-------------------------------")
