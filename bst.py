@@ -109,6 +109,34 @@ class BST:
         """
         TODO: Write your implementation
         """
+
+        if self._root == None:
+            self._root = BSTNode(value)
+        else:
+            self._insert(value, self._root)
+
+    def _insert(self, value, cur_node):
+
+        if value < cur_node.value:
+            if cur_node.left == None:
+                cur_node.left = BSTNode(value)
+                # cur_node.left.parent=cur_node # set parent
+            else:
+                self._insert(value, cur_node.left)
+        elif value >= cur_node.value:
+            if cur_node.right == None:
+                cur_node.right = BSTNode(value)
+                # cur_node.right.parent=cur_node # set parent
+            else:
+                self._insert(value, cur_node.right)
+        # print(self.is_valid_bst())
+        #
+
+
+
+
+
+
         # temp = self._root
         # if current_node:
         #
@@ -133,33 +161,33 @@ class BST:
         #
         # else:
         #     self._root = BSTNode(value)
-
-        new_node = BSTNode(value)
-        if self._root is None:
-            self._root = new_node
-            return
-
-        node = self._root
-        while(True):
-            if(self._root.value <= value):
-
-                if node.right is None:
-                    # print("right")
-                    node.right = new_node
-                    break
-                node = node.right
-            else:
-
-                if node.left is None:
-                    # print("left")
-                    node.left = new_node
-                    break
-                node = node.left
-
-
-
-
-        
+        #
+        # new_node = BSTNode(value)
+        # if self._root is None:
+        #     self._root = new_node
+        #     return
+        #
+        # node = self._root
+        # while(True):
+        #     if(self._root.value <= value):
+        #
+        #         if node.right is None:
+        #             # print("right")
+        #             node.right = new_node
+        #             break
+        #         node = node.right
+        #     else:
+        #
+        #         if node.left is None:
+        #             # print("left")
+        #             node.left = new_node
+        #             break
+        #         node = node.left
+        #
+        #
+        #
+        #
+        #
         
 
 
