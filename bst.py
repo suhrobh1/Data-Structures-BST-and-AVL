@@ -352,6 +352,7 @@ class BST:
                     parent_node.right = inorder_successor
                     return True
                 else:
+                    inorder_successor.right = node.right
                     inorder_successor.left = node.left
                     parent_node.right = inorder_successor
                     return True
