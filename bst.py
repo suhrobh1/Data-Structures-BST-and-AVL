@@ -184,6 +184,7 @@ class BST:
 
     def remove(self, value):
 
+        parent_node = None
         findResult = self.find(value)
         if findResult is None:
             return False
@@ -193,9 +194,11 @@ class BST:
             return False
 
         if not findResult[2]:
+
             inorder_successor = self.inorder_successor_finder(node)
             self._root = inorder_successor
             print("in order succesrot:", inorder_successor)
+
             return True
         else:
             parent_node = findResult[2] # parent node
@@ -211,7 +214,8 @@ class BST:
                 self._root = None
                 return True
             else:
-                parent_node = None
+                print("Strike!")
+                node = None
                 return True
         # if node does not have right child
         elif node.left and not node.right:
@@ -317,37 +321,37 @@ class BST:
 
 if __name__ == '__main__':
 
-    print("\nPDF - method add() example 1")
-    print("----------------------------")
-    test_cases = (
-        (1, 2, 3),
-        (3, 2, 1),
-        (1, 3, 2),
-        (3, 1, 2),
-    )
-    for case in test_cases:
-        tree = BST(case)
-        print(tree)
-
-    print("\nPDF - method add() example 2")
-    print("----------------------------")
-    test_cases = (
-        (10, 20, 30, 40, 50),
-        (10, 20, 30, 50, 40),
-        (30, 20, 10, 5, 1),
-        (30, 20, 10, 1, 5),
-        (5, 4, 6, 3, 7, 2, 8),
-        (range(0, 30, 3)),
-        (range(0, 31, 3)),
-        (range(0, 34, 3)),
-        (range(10, -10, -2)),
-        ('A', 'B', 'C', 'D', 'E'),
-        (1, 1, 1, 1),
-    )
-    for case in test_cases:
-        tree = BST(case)
-        print('INPUT  :', case)
-        print('RESULT :', tree)
+    # print("\nPDF - method add() example 1")
+    # print("----------------------------")
+    # test_cases = (
+    #     (1, 2, 3),
+    #     (3, 2, 1),
+    #     (1, 3, 2),
+    #     (3, 1, 2),
+    # )
+    # for case in test_cases:
+    #     tree = BST(case)
+    #     print(tree)
+    #
+    # print("\nPDF - method add() example 2")
+    # print("----------------------------")
+    # test_cases = (
+    #     (10, 20, 30, 40, 50),
+    #     (10, 20, 30, 50, 40),
+    #     (30, 20, 10, 5, 1),
+    #     (30, 20, 10, 1, 5),
+    #     (5, 4, 6, 3, 7, 2, 8),
+    #     (range(0, 30, 3)),
+    #     (range(0, 31, 3)),
+    #     (range(0, 34, 3)),
+    #     (range(10, -10, -2)),
+    #     ('A', 'B', 'C', 'D', 'E'),
+    #     (1, 1, 1, 1),
+    # )
+    # for case in test_cases:
+    #     tree = BST(case)
+    #     print('INPUT  :', case)
+    #     print('RESULT :', tree)
 
     # print("\nPDF - method add() example 3")
     # print("----------------------------")
