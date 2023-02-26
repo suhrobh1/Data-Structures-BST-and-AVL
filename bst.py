@@ -217,7 +217,8 @@ class BST:
                 inorder_successor.left = self._root.left
                 self._root = inorder_successor
                 return True
-
+            else:
+                self._root = inorder_successor
 
 
         else:
