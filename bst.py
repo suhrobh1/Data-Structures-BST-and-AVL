@@ -216,7 +216,7 @@ class BST:
                 # successors left will point to root's exising left
                 inorder_successor.left = self._root.left
                 self._root = inorder_successor
-
+                return True
 
 
 
