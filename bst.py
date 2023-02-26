@@ -289,7 +289,7 @@ class BST:
                         return True
                     else:
                         inorder_successor.left = node.left
-                        inorder_successor.right = node.right
+                        # inorder_successor.right = node.right
                         # node.right.left = None
                         parent_node.right = inorder_successor
                         return True
