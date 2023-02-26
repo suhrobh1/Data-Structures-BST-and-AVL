@@ -180,8 +180,9 @@ class BST:
                 return node.right.left
             else:
                 return node.right
-        else:
-            return None
+        elif node.left:
+            return node.left
+
 
     def remove(self, value):
 
@@ -483,10 +484,11 @@ if __name__ == '__main__':
     print("\nPDF - method remove() example 2")
     print("-------------------------------")
     test_cases = (
-        ((50, 40, 60, 30, 70, 20, 80, 45), 20),
-        ((50, 40, 60, 30, 70, 20, 80, 15), 40),
-        ((50, 40, 60, 30, 70, 20, 80, 35), 20),
-        ((50, 40, 60, 30, 70, 20, 80, 25), 40),
+        ((96, 0, 70, -24, -88, 45, -82, 47, 17, -12), 96),
+        # ((50, 40, 60, 30, 70, 20, 80, 45), 20),
+        # ((50, 40, 60, 30, 70, 20, 80, 15), 40),
+        # ((50, 40, 60, 30, 70, 20, 80, 35), 20),
+        # ((50, 40, 60, 30, 70, 20, 80, 25), 40),
     )
     for case, del_value in test_cases:
         tree = BST(case)
