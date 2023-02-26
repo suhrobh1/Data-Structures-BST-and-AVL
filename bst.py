@@ -186,7 +186,6 @@ class BST:
 
     def remove(self, value):
 
-# 66, 30, 37, 14, 35, 72, 82, 86, 16, 17
 
 
         findResult = self.find(value)
@@ -287,6 +286,8 @@ class BST:
                         return True
                     else:
                         inorder_successor.left = node.left
+                        inorder_successor.right = node.right
+                        node.right.left = None
                         parent_node.right = inorder_successor
                         return True
 
@@ -336,11 +337,37 @@ class BST:
         else:
             return False
 
-    def inorder_traversal(self) -> Queue:
+    def inorder_traversal(self, node=None) -> Queue:
         """
         TODO: Write your implementation
         """
-        pass
+        return_queue = Queue()
+        if self._root is None:
+            return return_queue
+        # print("Bam")
+        # node = self._root
+        # if node is not None:
+        #     self.inorder_traversal(node.left)
+        #     print("sscap!")
+        #     self.inorder_traversal(node.rigth)
+        # print("BamBam")
+
+
+        # utilize recursive helper function in processing non-empty BST and return resulting Queue
+        self.in_order_helper(self._root, return_queue)
+        return return_queue
+
+    def in_order_helper(self, node: object, return_queue: object) -> None:
+        # if node.left exists, navigate traversal to node.left then process current node
+        if node.left is not None:
+            self.in_order_helper(node.left, return_queue)
+
+        # Add to queue node
+        return_queue.enqueue(node)
+
+        # if node.right exists, navigate traversal to node.right
+        if node.right is not None:
+            self.in_order_helper(node.right, return_queue)
 
     def find_min(self) -> object:
         """
