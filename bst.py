@@ -348,10 +348,14 @@ class BST:
             node = node.right
             while node.left is not None:
                 node = node.left
+            if self._root.value < node.value:
+                return self._root.value
             return node.value
         elif node.left:
             while node.left is not None:
                 node = node.left
+            if self._root.value < node.value:
+                return self._root.value
             return node.value
 
     def find_max(self) -> object:
@@ -544,6 +548,16 @@ if __name__ == '__main__':
     tree = BST([8, 10, -4, 5, -1])
     print(tree)
     print("Minimum value is:", tree.find_min())
+
+    print("\nPDF - method find_min() example 3")
+    print("---------------------------------")
+    tree = BST( ["AQ", "SO", "QU", "G", "EF", "B", "C", "B", "B", "B", "B", "B", "B", "C",
+     "DP","D", "DP", "E", "EF", "G", "NB", "HD", "G", "G", "G", "IG", "I", "HD", "IG", "L", "J", "K", "K", "OX", "P", "OX", "P", "RH", "R", "QU", "QU", "R", "R", "R", "R", "R", "R", "R", "S", "RH", "S", "TI", "T", "T", "Y", "XD", "TI", "Y", "Z", "Y", "ZL", "ZL"])
+    print(tree)
+    print("Minimum value is:", tree.find_min())
+
+
+
 
     print("\nPDF - method find_max() example 1")
     print("---------------------------------")
