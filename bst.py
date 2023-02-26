@@ -215,7 +215,9 @@ class BST:
             if node.right:
                 if node.right.left:
                     # successors left will point to root's exising leftand right
+                    node.right.left = None
                     inorder_successor.right = self._root.right
+
                     inorder_successor.left = self._root.left
                     # inorder_successor.right = self._root.right
                     self._root = inorder_successor
