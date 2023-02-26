@@ -213,13 +213,21 @@ class BST:
 
         if parent_node is None:
             if node.right:
-                # successors left will point to root's exising left
-                inorder_successor.left = self._root.left
-                self._root = inorder_successor
+                if node.right.left:
+                    # successors left will point to root's exising leftand right
+                    inorder_successor.right = self._root.right
+                    inorder_successor.left = self._root.left
+                    # inorder_successor.right = self._root.right
+                    self._root = inorder_successor
+                else:
+                    # successors left will point to root's exising left
+                    inorder_successor.left = self._root.left
+                    # inorder_successor.right = self._root.right
+                    self._root = inorder_successor
                 return True
             else:
                 self._root = inorder_successor
-
+                return True
 
         else:
             # no children of node
