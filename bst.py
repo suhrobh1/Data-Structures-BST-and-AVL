@@ -372,13 +372,16 @@ class BST:
         """
         TODO: Write your implementation
         """
-        pass
+        if self._root is None:
+            return True
+        else:
+            return False
 
     def make_empty(self) -> None:
         """
         TODO: Write your implementation
         """
-        pass
+        self._root = None
 
 
 # ------------------- BASIC TESTING -----------------------------------------
