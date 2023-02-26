@@ -157,17 +157,92 @@ class BST:
 
     def find(self, value):
         node = self._root
+        parent_node = None
+        child = None
         while node is not None:
+
             if node.value == value:
-                return True
+                # print(node, parent_node, child)
+                return (True, node, parent_node, child)
             elif value < node.value:
+                parent_node = node
+                child = "left"
                 node = node.left
             else:
+                parent_node = node
+                child = "right"
                 node = node.right
         return False
+    def inorder_successor_finder(self, node):
+
+        if node.right:
+            if node.right.left:
+                return node.right.left
+            else:
+                return node.right
 
 
-    def remove(self, value: object) -> bool:
+    def remove(self, value):
+
+        findResult = self.find(value)
+        if findResult is None:
+            return False
+        if findResult:
+            node = findResult[1]
+        else:
+            return False
+
+        if not findResult[2]:
+            inorder_successor = self.inorder_successor_finder(node)
+            self._root = inorder_successor
+            print("in order succesrot:", inorder_successor)
+            return
+        else:
+            parent_node = findResult[2] # parent node
+            whichChild = findResult[3]
+            inorder_successor = self.inorder_successor_finder(node)
+
+
+
+
+        # no children of node
+        if not node.left and not node.right:
+            if node == self._root:
+                self._root = None
+                return True
+            else:
+                parent_node = None
+                return True
+        # if node does not have right child
+        elif node.left and not node.right:
+            #if node is parent's left child
+            if whichChild == "left":
+                parent_node.left = node.left
+                return True
+            # if node is parent's right child
+            else:
+                parent_node.right = node.left
+                return True
+        #if node does not have a left child
+        elif node.right and not node.left:
+            # if node is parent's left child
+            if whichChild == "left":
+                parent_node.left = node.right
+                return True
+            # if node is parent's right child
+            else:
+                parent_node.right = node.right
+                return True
+        else:
+            if whichChild == "left":
+                parent_node.left = inorder_successor
+                return True
+            else:
+                parent_node.right = inorder_successor
+                return True
+
+
+    def remove1(self, value: object) -> bool:
         """
         TODO: Write your implementation
         """
@@ -286,21 +361,24 @@ if __name__ == '__main__':
     # print('add() stress test finished')
 
 
-    print("----------FIND START------------")
-    inputArray = (5, 4, 6, 3, 7, 2, 8)
-
-    tree = BST()
-
-    for item in inputArray:
-        tree.add(item)
-    print(tree)
-
-    print(tree.find(1))
-    print(tree.find(3))
-    print(tree.find(0))
-    print(tree.find(99))
-
-    print("----------FIND END------------")
+    # print("----------FIND START------------")
+    # inputArray = (5, 4, 6, 3, 7, 2, 8)
+    #
+    # tree = BST()
+    #
+    # for item in inputArray:
+    #     tree.add(item)
+    # print(tree)
+    #
+    # print(tree.find(1))
+    # print(tree.find(2))
+    #
+    # print(tree.find(0))
+    # print(tree.find(99))
+    # print(tree.remove(6))
+    #
+    #
+    # print("----------FIND END------------")
 
 
 
