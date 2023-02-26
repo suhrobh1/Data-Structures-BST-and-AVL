@@ -287,6 +287,8 @@ class BST:
                         return True
                     else:
                         inorder_successor.left = node.left
+                        node.right.left = None
+                        inorder_successor.right = node.right
                         parent_node.right = inorder_successor
                         return True
 
@@ -462,10 +464,16 @@ if __name__ == '__main__':
     #
     # print("----------FIND END------------")
 
+    print("\nPDF SPECIAL -----------")
 
+    tree = BST([-32, 2, 43, 78, 50, 29, 87, -38, -99, -65])
+    print(tree)
+    tree.remove(-32)
+    print(tree)
+    tree.remove(43)
+    print(tree)
 
-
-
+    print("\nPDF SPECIAL ----END-------")
 
 
 
@@ -478,13 +486,17 @@ if __name__ == '__main__':
         # ((1, 2, 3), 3),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 0),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 45),
-        ((50, 40, 60, 30, 70, 20, 80, 45), 40),
-        ((50, 40, 60, 30, 70, 20, 80, 45), 30),
+        ((-32, 2, 43, 78, 50, 29, 87, -38, -99, -65), -32)
+        # ((50, 40, 60, 30, 70, 20, 80, 45), 40),
+        # ((50, 40, 60, 30, 70, 20, 80, 45), 30),
+
+        #67, 101, 142, 177,	149,	128,	186	61	0	34
     )
     for case, del_value in test_cases:
         tree = BST(case)
-        print('INPUT  :', tree, "DEL:", del_value)
+        print('INPUT  :', tree, "DEL:", del_value )
         tree.remove(del_value)
+        # tree.remove(43)
         print('RESULT :', tree)
 
     print("\nPDF - method remove() example 2")
