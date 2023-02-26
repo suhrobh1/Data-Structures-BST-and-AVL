@@ -476,6 +476,8 @@ if __name__ == '__main__':
 
 
 
+
+
     print("\nPDF - method remove() example 1")
     print("-------------------------------")
     test_cases = (
