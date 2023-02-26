@@ -323,7 +323,11 @@ class BST:
         """
         TODO: Write your implementation
         """
-        pass
+        result = self.find(value)
+        if result:
+            return result[0]
+        else:
+            return False
 
     def inorder_traversal(self) -> Queue:
         """
