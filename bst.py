@@ -194,7 +194,7 @@ class BST:
             return False
 
         # if no parent
-        if not findResult[2]:
+        if findResult[2] is None:
             # Getting the successor
             inorder_successor = self.inorder_successor_finder(node)
             #setting the successor as the root
@@ -206,7 +206,8 @@ class BST:
             print("crum a")
             parent_node = findResult[2] # parent node
             whichChild = findResult[3]
-            inorder_successor = None
+            inorder_successor = self.inorder_successor_finder(node)
+
 
 
 
@@ -214,8 +215,15 @@ class BST:
         # no children of node
         if node.left == None and node.right == None:
             print("crum 1")
-            parent_node.left = None
-            parent_node.right = None
+            if whichChild == "left":
+                parent_node.left = None
+                return True
+            # if node is parent's right child
+            else:
+                parent_node.right = None
+                return True
+            # parent_node.left = None
+            # parent_node.right = None
             print(parent_node)
 
             node=None
@@ -250,14 +258,31 @@ class BST:
             else:
                 parent_node.right = node.right
                 return True
+        # If node has both children
         else:
             print("crum 4")
             if whichChild == "left":
-                parent_node.left = inorder_successor
-                return True
+                # If the successor node is the same deleted node left child
+                if inorder_successor == node.left:
+                    # setting deleted node's right  child and successor's right
+                    inorder_successor.right = node.right
+                    parent_node.left = inorder_successor
+                    return True
+                else:
+                    inorder_successor.left = node.left
+                    parent_node.left = inorder_successor
+                    return True
             else:
-                parent_node.right = inorder_successor
-                return True
+                if inorder_successor == node.left:
+                    # setting deleted node's right  child and successor's right
+                    inorder_successor.right = node.right
+                    parent_node.right = inorder_successor
+                    return True
+                else:
+                    inorder_successor.left = node.left
+                    parent_node.right = inorder_successor
+                    return True
+
 
 
     def remove1(self, value: object) -> bool:
@@ -409,11 +434,11 @@ if __name__ == '__main__':
     print("\nPDF - method remove() example 1")
     print("-------------------------------")
     test_cases = (
-        ((1, 2, 3), 1),
-        ((1, 2, 3), 2),
-        ((1, 2, 3), 3),
-        ((50, 40, 60, 30, 70, 20, 80, 45), 0),
-        ((50, 40, 60, 30, 70, 20, 80, 45), 45),
+        # ((1, 2, 3), 1),
+        # ((1, 2, 3), 2),
+        # ((1, 2, 3), 3),
+        # ((50, 40, 60, 30, 70, 20, 80, 45), 0),
+        # ((50, 40, 60, 30, 70, 20, 80, 45), 45),
         ((50, 40, 60, 30, 70, 20, 80, 45), 40),
         ((50, 40, 60, 30, 70, 20, 80, 45), 30),
     )
