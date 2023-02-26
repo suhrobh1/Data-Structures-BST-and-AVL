@@ -187,7 +187,7 @@ class BST:
             if node.right:
                 if node.right.left:
                     # successors left will point to root's exising leftand right
-    # FLAG!                inorder_successor.right = self._root.right
+                    inorder_successor.right = self._root.right
                     inorder_successor.left = self._root.left
                     # inorder_successor.right = self._root.right
                     self._root = inorder_successor
@@ -195,7 +195,7 @@ class BST:
                 else:
                     # successors left will point to root's existing left
                     inorder_successor.left = self._root.left
-    # FLAG!                 inorder_successor.right = self._root.right
+    #                inorder_successor.right = self._root.right
                     self._root = inorder_successor
                     return True
             else:
@@ -259,7 +259,7 @@ class BST:
                         return True
                     else:
                         inorder_successor.left = node.left
-   # FLAG               inorder_successor.right = node.right
+                        inorder_successor.right = node.right
                         # node.right.left = None
                         parent_node.right = inorder_successor
                         return True
