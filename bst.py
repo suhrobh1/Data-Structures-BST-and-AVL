@@ -196,7 +196,7 @@ class BST:
             inorder_successor = self.inorder_successor_finder(node)
             self._root = inorder_successor
             print("in order succesrot:", inorder_successor)
-            return
+            return True
         else:
             parent_node = findResult[2] # parent node
             whichChild = findResult[3]
