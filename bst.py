@@ -180,45 +180,57 @@ class BST:
                 return node.right.left
             else:
                 return node.right
-
+        else:
+            return None
 
     def remove(self, value):
 
-        parent_node = None
         findResult = self.find(value)
-        if findResult is None:
-            return False
+        node = None
+
         if findResult:
             node = findResult[1]
         else:
             return False
 
+        # if no parent
         if not findResult[2]:
-
+            # Getting the successor
             inorder_successor = self.inorder_successor_finder(node)
+            #setting the successor as the root
             self._root = inorder_successor
             print("in order succesrot:", inorder_successor)
 
             return True
         else:
+            print("crum a")
             parent_node = findResult[2] # parent node
             whichChild = findResult[3]
-            inorder_successor = self.inorder_successor_finder(node)
+            inorder_successor = None
 
 
 
 
         # no children of node
-        if not node.left and not node.right:
-            if node == self._root:
-                self._root = None
-                return True
-            else:
-                print("Strike!")
-                node = None
-                return True
+        if node.left == None and node.right == None:
+            print("crum 1")
+            parent_node.left = None
+            parent_node.right = None
+            print(parent_node)
+
+            node=None
+
+
+            # if node == self._root:
+            #     self._root = None
+            return True
+            # else:
+            #     print("Strike!")
+            #     node = None
+            #     return True
         # if node does not have right child
         elif node.left and not node.right:
+            print("crum 2")
             #if node is parent's left child
             if whichChild == "left":
                 parent_node.left = node.left
@@ -229,6 +241,7 @@ class BST:
                 return True
         #if node does not have a left child
         elif node.right and not node.left:
+            print("crum 3")
             # if node is parent's left child
             if whichChild == "left":
                 parent_node.left = node.right
@@ -238,6 +251,7 @@ class BST:
                 parent_node.right = node.right
                 return True
         else:
+            print("crum 4")
             if whichChild == "left":
                 parent_node.left = inorder_successor
                 return True
