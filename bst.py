@@ -411,7 +411,7 @@ class BST:
             if node.right.left:
                 inorder_successor.left = self._root.left
                 inorder_successor.right = self._root.right
-                inorder_successor_parent.left = inorder_successor.right
+                # inorder_successor_parent.left = inorder_successor.right
                 self._root = inorder_successor
                 return True
             elif node.right.left is None:
