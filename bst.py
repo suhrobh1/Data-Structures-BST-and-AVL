@@ -318,28 +318,26 @@ class BST:
                 print("PMski if section")
 # NEED HELP HERE     NEED HELP HERE  NEED HELP HERE    NEED HELP HERE    NEED HELP HERE
                 if inorder_successor.left is None and inorder_successor.right is None:
+                    self._root.value = inorder_successor.value
+                    #self._root = inorder_successor
+                    inorder_successor.value = None
+                    inorder_successor_parent.left = None
+                    self._root.left = node.left
+                    self._root.right = node.right
+                    #inorder_successor.left = node.left
+
+                    # self._root.right = temp
                     # print("top")
                     # print(inorder_successor.value)
                     # print(inorder_successor_parent.value)
-                    self._root.value = inorder_successor.value
-                    inorder_successor_parent.left = None
-                    inorder_successor_parent.left = inorder_successor.right
+                    # self._root.value = inorder_successor.value
+                    # inorder_successor_parent.left = None
+                    # inorder_successor_parent.left = inorder_successor.right
                     
-                    inorder_successor = None
-                    #self._root.right = node.right
-                    self._root.left = node.left
+                    # inorder_successor = None
+                    # self._root.left = node.left
+
                     
-                    
-                    #self._root.value = inorder_successor.value
-                    #self._root = inorder_successor
-                    #inorder_successor_parent.right = inorder_successor.right
-                    
-                    #inorder_successor_parent.left = None
-                    #self._root.left = node.left
-                    #self._root.right = node.right
-                    #inorder_successor.left = node.left
-                    
-                    # self._root.right = temp
                     print("What?")
                     return True
                 elif inorder_successor.left is None and inorder_successor.right:
