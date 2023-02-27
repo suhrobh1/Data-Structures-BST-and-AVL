@@ -322,8 +322,8 @@ class BST:
                     print("top")
                     inorder_successor.left = node.left
 
-                    inorder_successor.right = inorder_successor_parent
-                    #inorder_successor_parent.right = None
+                    inorder_successor.right = node.right
+                    inorder_successor_parent.right = None
                     inorder_successor.left = node.left
                     self._root = inorder_successor
                     # self._root.right = temp
