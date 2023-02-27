@@ -409,7 +409,7 @@ class BST:
         elif parent_node is None:
             print("PMski")
             if node.right.left:
-                inorder_successor.left = node.left
+               # inorder_successor.left = node.left
                 node.right.left.right = node.right
                 # inorder_successor_parent.left = inorder_successor.right
                 self._root = inorder_successor
