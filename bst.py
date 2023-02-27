@@ -410,11 +410,12 @@ class BST:
             print("PMski")
 
             if node.right.left:
+                temp = node.right
                 inorder_successor.left = node.left
                 self._root = inorder_successor
 
                 inorder_successor_parent.left = inorder_successor.right
-                # inorder_successor.right = inorder_successor_parent
+                inorder_successor.right = temp
                 return True
             elif node.right.left is None:
                 inorder_successor.left = node.left
@@ -610,6 +611,7 @@ if __name__ == '__main__':
         # ((1, 2, 3), 3),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 0),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 45),
+        ((3, -61, -57, 72, -20, -52, -47, -13, 25, -5), 3),
         ((-64, -63, -27, -83, -81, -15, -76, 86, 24), -64),
         ((50, 40, 60, 30, 70, 20, 80, 45), 40),
         ((50, 40, 60, 30, 70, 20, 80, 45), 30),
