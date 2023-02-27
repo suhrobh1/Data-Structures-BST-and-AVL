@@ -322,11 +322,12 @@ class BST:
                     print(inorder_successor.value)
                     print(inorder_successor_parent.value)
                     self._root.value = inorder_successor.value
-                    
-                    self._root.right = node.right
-                    self._root.left = node.left
                     inorder_successor_parent.left = inorder_successor.right
                     inorder_successor = None
+                    self._root.right = node.right
+                    self._root.left = node.left
+                    
+                    
                     #self._root.value = inorder_successor.value
                     #self._root = inorder_successor
                     #inorder_successor_parent.right = inorder_successor.right
