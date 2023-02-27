@@ -380,8 +380,12 @@ class BST:
                     return True
             elif node.left:
                 print("elif node.left section ")
-                inorder_successor.left = node.left
-                return True
+                if node.right.left is None:
+                    parent_node.right = node.right
+                    node.right.left = node.left
+
+                    return True
+
 
             # if inorder_successor == node.left:
             #     # setting deleted node's right  child and successor's right
