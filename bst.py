@@ -325,8 +325,8 @@ class BST:
                     inorder_successor_parent.left = None
                     inorder_successor_parent.left = inorder_successor.right
                     
-                    # inorder_successor = None
-                    self._root.right = node.right
+                    inorder_successor = None
+                    #self._root.right = node.right
                     self._root.left = node.left
                     
                     
