@@ -323,7 +323,7 @@ class BST:
                     print(inorder_successor_parent.value)
                     self._root.value = inorder_successor.value
                     inorder_successor_parent.left = inorder_successor.right
-                    inorder_successor = None
+                    # inorder_successor = None
                     self._root.right = node.right
                     self._root.left = node.left
                     
