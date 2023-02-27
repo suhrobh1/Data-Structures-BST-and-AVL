@@ -207,7 +207,7 @@ class BST:
         TODO: Write your implementation
         """
         # remove node that has no subtrees (no left or right nodes)
-        print("remove func 1")
+
         if parent_node:
             if whichChild == "left":
                 parent_node.left = None
@@ -226,7 +226,6 @@ class BST:
         """
         TODO: Write your implementation
         """
-        print("remove func 2")
         # remove node that has a left or right subtree (only)
         if remove_parent:
             # If remove is its parent's left child
@@ -262,9 +261,6 @@ class BST:
         """
         TODO: Write your implementation
         """
-        # remove node that has two subtrees
-        # need to find inorder successor and its parent (make a method!)
-        print("remove func 3")
 
         inorder_successor_return = self.inorder_successor_finder(node)
         inorder_successor = inorder_successor_return[0]
@@ -273,7 +269,6 @@ class BST:
         if parent_node:
 
             if whichChild == "left":
-                print("-----------------IF PARENT SECTION----------------")
                 if node.left is None:
                     if node.right.left is None:
                         parent_node.left = node.right
@@ -296,7 +291,6 @@ class BST:
                         return True
 
             elif whichChild == "right":
-                print("else of func 3")
 
                 if node.left is None:
                     if node.right.left is None:
@@ -324,15 +318,24 @@ class BST:
             if node.right.left:
                 print("PMski if section")
 
-                self._root.value = inorder_successor.value
+                if inorder_successor.left is None and inorder_successor.right is None:
+                    print("top")
+                    inorder_successor.left = node.left
 
-                inorder_successor_parent.left = inorder_successor.right
-                inorder_successor.left = node.left
-                # inorder_successor.right = node.right
-
-                return True
+                    inorder_successor.right = inorder_successor_parent
+                    #inorder_successor_parent.right = None
+                    inorder_successor.left = node.left
+                    self._root = inorder_successor
+                    # self._root.right = temp
+                    return True
+                elif inorder_successor.left is None and inorder_successor.right:
+                    print("bottom")
+                    inorder_successor.left = node.left
+                    inorder_successor_parent.left = inorder_successor.right
+                    inorder_successor.right = node.right
+                    self._root = inorder_successor
+                    return True
             elif node.right.left is None:
-                print("PMski else section---------------------------")
                 inorder_successor.left = node.left
                 self._root = inorder_successor
                 return True
