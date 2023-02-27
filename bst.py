@@ -315,15 +315,17 @@ class BST:
                         return True
         elif parent_node is None:
             print("------------------IF NOT PARENT--------------------")
+            # If we have inorder successor, which is node.right.left node
             if node.right.left:
                 print("PMski if section")
-
+# NEED HELP HERE     NEED HELP HERE  NEED HELP HERE    NEED HELP HERE    NEED HELP HERE
                 if inorder_successor.left is None and inorder_successor.right is None:
                     print("top")
                     inorder_successor.left = node.left
-
+                    inorder_successor_parent.left = None
+                    node.right.left = None
                     inorder_successor.right = node.right
-                    inorder_successor_parent.right = None
+                    # inorder_successor_parent.right = None
                     inorder_successor.left = node.left
                     self._root = inorder_successor
                     # self._root.right = temp
