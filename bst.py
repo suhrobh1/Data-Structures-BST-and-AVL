@@ -355,6 +355,7 @@ class BST:
         inorder_successor_parent = inorder_successor_return[1]
 
         if whichChild == "left":
+            print("if of func 3")
             # If the successor node is the same deleted node left child
             if inorder_successor == node.left:
                 # setting deleted node's right  child and successor's right
