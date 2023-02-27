@@ -356,16 +356,27 @@ class BST:
 
         if whichChild == "left":
             print("if of func 3")
-            # If the successor node is the same deleted node left child
-            if inorder_successor == node.left:
-                # setting deleted node's right  child and successor's right
-                inorder_successor.right = node.right
-                parent_node.left = inorder_successor
-                return True
-            else:
-                inorder_successor.left = node.left
-                parent_node.left = inorder_successor
-                return True
+            if node.left is None:
+                if node.right.left is None:
+                    parent_node.left = node.right
+                    return True
+                elif node.right.left:
+                    parent_node.left = inorder_successor
+                    inorder_successor.right = node.right
+                    node.right.left = inorder_successor.right
+                    return True
+            elif node.left:
+                if node.right.left is None:
+                    parent_node.left = node.right
+                    parent_node.left.left = node.left
+                    return True
+                elif node.right.left:
+                    parent_node.left = inorder_successor
+                    inorder_successor.right = node.right
+                    inorder_successor.left = node.left
+                    node.right.left = inorder_successor.right
+                    return True
+
         elif whichChild == "right":
             print("else of func 3")
 
