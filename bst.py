@@ -82,12 +82,10 @@ class BST:
         """
         Perform pre-order traversal of the tree.
         Return False if nodes don't adhere to the bst ordering property.
-
         This is intended to be a troubleshooting method to help find any
         inconsistencies in the tree after the add() or remove() operations.
         A return of True from this method doesn't guarantee that your tree
         is the 'correct' result, just that it satisfies bst ordering.
-
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
         stack = Stack()
@@ -154,16 +152,16 @@ class BST:
 
         if node.right:
             if node.right.left:
-                node = node.right.left
+                node = node.right
                 parent_node = node
                 while node.left is not None:
                     parent_node = node
                     node = node.left
-                return node, parent_node
+                return parent_node
             else:
-                return node.right, node
+                return node.right
         elif node.left:
-            return node.left, node
+            return node.left
         # Must be a root node
         else:
             return None
@@ -263,8 +261,11 @@ class BST:
         """
 
         inorder_successor_return = self.inorder_successor_finder(node)
-        inorder_successor = inorder_successor_return[0]
-        inorder_successor_parent = inorder_successor_return[1]
+        inorder_successor = inorder_successor_return.left
+        inorder_successor_parent = inorder_successor_return
+        
+        # inorder_successor = inorder_successor_return[0]
+        # inorder_successor_parent = inorder_successor_return[1]
 
         if parent_node:
 
@@ -320,13 +321,11 @@ class BST:
                 print("PMski if section")
 # NEED HELP HERE     NEED HELP HERE  NEED HELP HERE    NEED HELP HERE    NEED HELP HERE
                 if inorder_successor.left is None and inorder_successor.right is None:
-                    print("top")
-                    inorder_successor.left = node.left
-                    inorder_successor.right = BSTNode(2)
-                    # inorder_successor_parent.right = None
-                    inorder_successor.left = node.left
-                    self._root = inorder_successor
-                    # self._root.right = temp
+                    self._root.value = inorder_successor.value
+                    inorder_successor_parent.left = None
+                    inorder_successor = None
+                                        
+                    print("What?")
                     return True
                 elif inorder_successor.left is None and inorder_successor.right:
                     print("bottom")
@@ -336,8 +335,9 @@ class BST:
                     self._root = inorder_successor
                     return True
             elif node.right.left is None:
-                inorder_successor.left = node.left
-                self._root = inorder_successor
+                self._root.value = node.right.value
+                self._root.left = node.left
+                
                 return True
 
 
