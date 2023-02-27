@@ -322,10 +322,11 @@ class BST:
                 if inorder_successor.left is None and inorder_successor.right is None:
                     print("top")
                     inorder_successor.left = node.left
-                    node.right.left = None
-                    # inorder_successor.right = node.right
+                    inorder_successor.right = BSTNode(2)
+                    # inorder_successor_parent.right = None
                     inorder_successor.left = node.left
                     self._root = inorder_successor
+                    # self._root.right = temp
                     return True
                 elif inorder_successor.left is None and inorder_successor.right:
                     print("bottom")
