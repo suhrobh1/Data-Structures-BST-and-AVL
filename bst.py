@@ -190,11 +190,11 @@ class BST:
         #
 
         if node.left is None and node.right is None:
-            self._remove_no_subtrees(parent_node, node, whichChild)
+            return self._remove_no_subtrees(parent_node, node, whichChild)
         elif node.left is None or node.right is None:
-            self._remove_one_subtree(parent_node, node, whichChild)
+            return self._remove_one_subtree(parent_node, node, whichChild)
         elif node.left and node.right:
-            self._remove_two_subtrees(parent_node, node, whichChild)
+            return self._remove_two_subtrees(parent_node, node, whichChild)
 
 
 
