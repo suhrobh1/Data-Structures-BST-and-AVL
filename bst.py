@@ -324,12 +324,13 @@ class BST:
             if node.right.left:
                 print("PMski if section")
 
-                inorder_successor_parent.left = inorder_successor.right
-                inorder_successor.left = node.left
-                inorder_successor.right = node.right
                 temp = self._root
                 inorder_successor = self._root
                 temp = None
+                inorder_successor_parent.left = inorder_successor.right
+                inorder_successor.left = node.left
+                inorder_successor.right = node.right
+
 
                 return True
             elif node.right.left is None:
