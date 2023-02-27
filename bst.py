@@ -323,7 +323,7 @@ class BST:
                     inorder_successor.value = None
                     inorder_successor_parent.left = None
                     self._root.left = node.left
-                    self._root.right = node.right
+                    #self._root.right = node.right
                     #inorder_successor.left = node.left
 
                     # self._root.right = temp
