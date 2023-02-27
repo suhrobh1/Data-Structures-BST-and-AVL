@@ -394,7 +394,12 @@ class BST:
                 if node.right.left is None:
                     parent_node.right = node.right
                     node.right.left = node.left
-
+                    return True
+                elif node.right.left:
+                    parent_node.left = inorder_successor
+                    inorder_successor.right = node.right
+                    inorder_successor.left = node.left
+                    node.right.left = inorder_successor.right
                     return True
 
 
