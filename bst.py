@@ -318,9 +318,9 @@ class BST:
                 print("PMski if section")
 # NEED HELP HERE     NEED HELP HERE  NEED HELP HERE    NEED HELP HERE    NEED HELP HERE
                 if inorder_successor.left is None and inorder_successor.right is None:
-                    print("top")
-                    print(inorder_successor.value)
-                    print(inorder_successor_parent.value)
+                    # print("top")
+                    # print(inorder_successor.value)
+                    # print(inorder_successor_parent.value)
                     self._root.value = inorder_successor.value
                     inorder_successor_parent.left = None
                     inorder_successor_parent.left = inorder_successor.right
