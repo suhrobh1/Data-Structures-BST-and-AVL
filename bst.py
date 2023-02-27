@@ -189,12 +189,15 @@ class BST:
             return False
         #
 
+
+
         if node.left is None and node.right is None:
             return self._remove_no_subtrees(parent_node, node, whichChild)
         elif node.left is None or node.right is None:
             return self._remove_one_subtree(parent_node, node, whichChild)
         elif node.left and node.right:
             return self._remove_two_subtrees(parent_node, node, whichChild)
+
 
 
 
@@ -354,53 +357,67 @@ class BST:
         inorder_successor = inorder_successor_return[0]
         inorder_successor_parent = inorder_successor_return[1]
 
-        if whichChild == "left":
-            print("if of func 3")
-            if node.left is None:
-                if node.right.left is None:
-                    parent_node.left = node.right
-                    return True
-                elif node.right.left:
-                    parent_node.left = inorder_successor
-                    inorder_successor.right = node.right
-                    node.right.left = inorder_successor.right
-                    return True
-            elif node.left:
-                if node.right.left is None:
-                    parent_node.left = node.right
-                    parent_node.left.left = node.left
-                    return True
-                elif node.right.left:
-                    parent_node.left = inorder_successor
-                    inorder_successor.right = node.right
-                    inorder_successor.left = node.left
-                    node.right.left = inorder_successor.right
-                    return True
+        if parent_node:
 
-        elif whichChild == "right":
-            print("else of func 3")
+            if whichChild == "left":
+                print("if of func 3")
+                if node.left is None:
+                    if node.right.left is None:
+                        parent_node.left = node.right
+                        return True
+                    elif node.right.left:
+                        parent_node.left = inorder_successor
+                        inorder_successor.right = node.right
+                        node.right.left = inorder_successor.right
+                        return True
+                elif node.left:
+                    if node.right.left is None:
+                        parent_node.left = node.right
+                        parent_node.left.left = node.left
+                        return True
+                    elif node.right.left:
+                        parent_node.left = inorder_successor
+                        inorder_successor.right = node.right
+                        inorder_successor.left = node.left
+                        node.right.left = inorder_successor.right
+                        return True
 
-            if node.left is None:
-                if node.right.left is None:
-                    parent_node.right = node.right
-                    return True
-                elif node.right.left:
-                    parent_node.right = inorder_successor
-                    inorder_successor.right = node.right
-                    node.right.left = inorder_successor.right
-                    return True
-            elif node.left:
-                print("elif node.left section ")
-                if node.right.left is None:
-                    parent_node.right = node.right
-                    node.right.left = node.left
-                    return True
-                elif node.right.left:
-                    parent_node.left = inorder_successor
-                    inorder_successor.right = node.right
-                    inorder_successor.left = node.left
-                    node.right.left = inorder_successor.right
-                    return True
+            elif whichChild == "right":
+                print("else of func 3")
+
+                if node.left is None:
+                    if node.right.left is None:
+                        parent_node.right = node.right
+                        return True
+                    elif node.right.left:
+                        parent_node.right = inorder_successor
+                        inorder_successor.right = node.right
+                        node.right.left = inorder_successor.right
+                        return True
+                elif node.left:
+                    print("elif node.left section ")
+                    if node.right.left is None:
+                        parent_node.right = node.right
+                        node.right.left = node.left
+                        return True
+                    elif node.right.left:
+                        parent_node.left = inorder_successor
+                        inorder_successor.right = node.right
+                        inorder_successor.left = node.left
+                        node.right.left = inorder_successor.right
+                        return True
+        elif parent_node is None:
+            print("PMski")
+            if node.right.left:
+                inorder_successor.left = self._root.left
+                inorder_successor.right = self._root.right
+                inorder_successor_parent.left = inorder_successor.right
+                self._root = inorder_successor
+                return True
+            elif node.right.left is None:
+                inorder_successor.left = self._root.left
+                self._root = inorder_successor
+                return True
 
 
             # if inorder_successor == node.left:
@@ -591,6 +608,7 @@ if __name__ == '__main__':
         # ((1, 2, 3), 3),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 0),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 45),
+        ((-64, -63, -27, -83, -81, -15, -76, 86, 24), -64),
         ((50, 40, 60, 30, 70, 20, 80, 45), 40),
         ((50, 40, 60, 30, 70, 20, 80, 45), 30),
     )
