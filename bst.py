@@ -410,7 +410,7 @@ class BST:
             print("PMski")
             if node.right.left:
                 inorder_successor.left = node.left
-                # inorder_successor.right = node.right
+                node.right.left.right = node.right
                 # inorder_successor_parent.left = inorder_successor.right
                 self._root = inorder_successor
                 return True
