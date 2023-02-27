@@ -150,11 +150,16 @@ class BST:
                 child = "right"
                 node = node.right
         return False
-    def inorder_successor_finder(self, node):
+    def inorder_successor_finder(self, node, parent_node=None):
 
         if node.right:
             if node.right.left:
-                return (node.right.left, node.right)
+                node = node.right.left
+                parent_node = node
+                while node.left is not None:
+                    parent_node = node
+                    node = node.left
+                return node, parent_node
             else:
                 return node.right, node
         elif node.left:
@@ -188,104 +193,12 @@ class BST:
         else:
             return False
         #
-
-
-
         if node.left is None and node.right is None:
             return self._remove_no_subtrees(parent_node, node, whichChild)
         elif node.left is None or node.right is None:
             return self._remove_one_subtree(parent_node, node, whichChild)
         elif node.left and node.right:
             return self._remove_two_subtrees(parent_node, node, whichChild)
-
-
-
-
-
-    #
-    #     if parent_node is None:
-    #         if node.right:
-    #
-    #             if node.right.left:
-    #                 # successors left will point to root's exising leftand right
-    #                 # inorder_successor.right = self._root.right
-    #                 inorder_successor.left = self._root.left
-    #                 if self._root.right:
-    #                     inorder_successor.right = self._root.right
-    #                 self._root = inorder_successor
-    #                 return True
-    #             else:
-    #                 # successors left will point to root's existing left
-    #                 inorder_successor.left = self._root.left
-    # #                inorder_successor.right = self._root.right
-    #                 self._root = inorder_successor
-    #                 return True
-    #         else:
-    #             self._root = inorder_successor
-    #             return True
-    #     else:
-    #         # no children of node
-    #         if node.left == None and node.right == None:
-    #             print("crum 1")
-    #             # Node is parents left child
-    #             if whichChild == "left":
-    #                 parent_node.left = None
-    #                 return True
-    #             # if node is parent's right child
-    #             else:
-    #                 parent_node.right = None
-    #                 return True
-    #             print(parent_node)
-    #
-    #         # if node does not have a right child
-    #         elif node.left and not node.right:
-    #             print("crum 2")
-    #             #if node is parent's left child
-    #             if whichChild == "left":
-    #                 parent_node.left = node.left
-    #                 return True
-    #             # if node is parent's right child
-    #             else:
-    #                 parent_node.right = node.left
-    #                 return True
-    #         # if node does not have a left child
-    #         elif node.right and not node.left:
-    #             print("crum 3")
-    #             # if node is parent's left child
-    #             if whichChild == "left":
-    #                 parent_node.left = node.right
-    #                 return True
-    #             # if node is parent's right child
-    #             else:
-    #                 parent_node.right = node.right
-    #                 return True
-    #         # if node has both children
-    #         else:
-    #             print("crum 4")
-    #             if whichChild == "left":
-    #                 # If the successor node is the same deleted node left child
-    #                 if inorder_successor == node.left:
-    #                     # setting deleted node's right  child and successor's right
-    #                     inorder_successor.right = node.right
-    #                     parent_node.left = inorder_successor
-    #                     return True
-    #                 else:
-    #                     inorder_successor.left = node.left
-    #                     parent_node.left = inorder_successor
-    #                     return True
-    #             else:
-    #                 if inorder_successor == node.left:
-    #                     # setting deleted node's right  child and successor's right
-    #                     inorder_successor.right = node.right
-    #                     parent_node.right = inorder_successor
-    #                     return True
-    #                 else:
-    #                     inorder_successor.left = node.left
-    #                     inorder_successor.right = node.right
-    #                     # node.right.left = None
-    #                     parent_node.right = inorder_successor
-    #                     return True
-    #
 
 
 
@@ -360,7 +273,7 @@ class BST:
         if parent_node:
 
             if whichChild == "left":
-                print("if of func 3")
+                print("-----------------IF PARENT SECTION----------------")
                 if node.left is None:
                     if node.right.left is None:
                         parent_node.left = node.right
@@ -407,25 +320,21 @@ class BST:
                         node.right.left = inorder_successor.right
                         return True
         elif parent_node is None:
-            print("PMski")
-
+            print("------------------IF NOT PARENT--------------------")
             if node.right.left:
+                print("PMski if section")
                 temp = node.right
-                inorder_successor.left = node.left
-                self._root = inorder_successor
 
                 inorder_successor_parent.left = inorder_successor.right
+                inorder_successor.left = node.left
                 inorder_successor.right = temp
+
                 return True
             elif node.right.left is None:
+                print("PMski else section---------------------------")
                 inorder_successor.left = node.left
                 self._root = inorder_successor
                 return True
-
-
-
-
-
 
 
     def contains(self, value: object) -> bool:
@@ -597,7 +506,7 @@ if __name__ == '__main__':
         # ((1, 2, 3), 2),
         # ((1, 2, 3), 3),
         # ((50, 40, 60, 30, 70, 20, 80, 45), 0),
-        # ((50, 40, 60, 30, 70, 20, 80, 45), 45),
+        ((-93, 3, 70, -55, 49, -77, -7, 26, -69, -98), -93),
         ((3, -61, -57, 72, -20, -52, -47, -13, 25, -5), 3),
         ((-64, -63, -27, -83, -81, -15, -76, 86, 24), -64),
         ((50, 40, 60, 30, 70, 20, 80, 45), 40),
