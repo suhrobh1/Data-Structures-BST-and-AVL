@@ -320,8 +320,8 @@ class BST:
                 if inorder_successor.left is None and inorder_successor.right is None:
                     self._root.value = inorder_successor.value
                     #self._root = inorder_successor
-                    # inorder_successor = None
-                    #inorder_successor_parent.left = None
+                    inorder_successor = None
+                    inorder_successor_parent.left = None
                     # self._root.left = node.left
                     #self._root.right = node.right
                     #inorder_successor.left = node.left
