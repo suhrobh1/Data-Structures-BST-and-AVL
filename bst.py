@@ -303,6 +303,7 @@ class BST:
         # If not parent and children, must be single root node
         elif parent_node is None:
             self._root = None
+            return True
 
 
     def _remove_one_subtree(self, remove_parent: BSTNode, remove_node: BSTNode, whichChild) -> None:
@@ -334,8 +335,10 @@ class BST:
         elif remove_parent is None:
             if remove_node.left:
                 self._root = remove_node.left
+                return True
             elif remove_node.right:
                 self._root = remove_node.right
+                return True
 
 
 
