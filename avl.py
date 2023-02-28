@@ -104,90 +104,84 @@ class AVL(BST):
         TODO: Write your implementation
         """
 
+
+
         if self._root is None:
             self._root = AVLNode(value)
-        else:
-            self._add(value, self._root)
-
-    def _add(self, value, node):
-
-        if value < node.value:
-            if node.left is None:
-                node.left = AVLNode(value)
-                node.left.parent = node
-                self._inspection(node.left)
-                return
-            else:
-                self._add(value, node.left)
-        elif value > node.value:
-            if node.right is None:
-                node.right = AVLNode(value)
-                node.right.parent = node
-                self._inspection(node.right)
-                return
-            else:
-                self._add(value, node.right)
-        else:
-            print("Value already in tree")
-
-    def _inspection(self, node, trace=[]):
-        if node.parent is None:
             return
 
-        trace = [node] + trace
+        node = self._root
 
-        # hieght of children
-        left_height = self._get_height(node.parent.left)
-        right_height = self._get_height(node.parent.right)
+        while node is not None:
+            if value < node.value:
+                if node.left is None:
+                    new_node = AVLNode(value)
+                    node.left = new_node
+                    new_node.parent = node
+                    parent = node
+                    while parent is not None:
+                        self._rebalance(parent)
+                        parent = parent.parent
+                    return
 
-        if abs(left_height - right_height) > 1:
-            trace = [node.parent] + trace
-            self._rebalance(trace[0], trace[1], trace[2])
-            return
+                else:
+                    node = node.left
+            elif value > node.value:
+                if node.right is None:
+                    new_node = AVLNode(value)
+                    node.right = new_node
+                    new_node.parent = node
+                    parent = node
+                    while parent is not None:
+                        self._rebalance(parent)
+                        parent = parent.parent
+                    return
+                else:
+                    node = node.right
+            else:
+                print("value in tree")
+                return
 
-        new_height = 1 + node.height
-        if new_height > node.parent.height:
-            node.parent.height = new_height
 
-        # continue up the tree
-        self._inspection(node.parent, trace)
+        # while parent is not None:
+        #     print("Flag 1", parent)
+        #     self._rebalance(parent)
+        #     parent = parent.parent
 
-    def _rebalance(self, node: AVLNode, y, x) -> None:
+
+    def _rebalance(self, node: AVLNode) -> None:
         """
         TODO: Write your implementation
         """
-        if y == node.left and x == y.left:
-            self._rotate_right(node)
-        elif y == node.left and x == y.right:
-            self._rotate_left(y)
-            self._rotate_right(node)
-        elif y == node.right and x == y.right:
-            self._rotate_left(node)
-        elif y == node.right and x == y.left:
-            self._rotate_right(y)
-            self._rotate_left(node)
+
+        print("balance factor check")
+        if self._balance_factor(node) < -1:
+            print("balance factor check")
+            if self._balance_factor(node.left) > 0:
+                print("before rotate left")
+                node.left = self._rotate_left(node.left)
+                print("after rotate left")
+                node.left.parent = node
+            newSubtreeRoot = self._rotate_right(node)
+            print("newSubtreeRoot", newSubtreeRoot)
+            newSubtreeRoot.parent = node.parent
+            node.parent.left = newSubtreeRoot
+            node.parent.right = newSubtreeRoot
+
+        elif self._balance_factor(node) > 1:
+            if self._balance_factor(node.right) < 0:
+                node.right = self._rotate_right(node.right)
+                node.right.parent = node
+            newSubtreeRoot = self._rotate_left(node)
+            print("newSubtreeRoot", newSubtreeRoot)
+            newSubtreeRoot.parent = node.parent
+            node.parent.left = newSubtreeRoot
+            node.parent.right = newSubtreeRoot
+
         else:
-            print('_rebalance_node: z,y,x node configuration not recognized!')
+            self._update_height(node)
 
-        # if self._balance_factor(node) < -1:
-        #     if self._balance_factor(node.left) > 0:
-        #         node.left = self._rotate_left(node.left)
-        #         node.left.parent = node
-        #     newSubtreeRoot = self._rotate_right(node)
-        #     newSubtreeRoot.parent = node.parent
-        #     node.parent.left = newSubtreeRoot
-        #     #node.parent.right = newSubtreeRoot
-        # elif self._balance_factor(node) > 1:
-        #     if self._balance_factor(node.right) < 0:
-        #         node.right = self._rotate_right(node.right)
-        #         node.right.parent = node
-        #     newSubtreeRoot = self._rotate_left(node)
-        #     newSubtreeRoot.parent = node.parent
-        #     #node.parent.left = newSubtreeRoot
-        #     node.parent.right = newSubtreeRoot
-        # else:
-        #     self._update_height(node)
-
+        print( "Hell")
     def _get_height(self, node: AVLNode) -> int:
         """
         TODO: Write your implementation
@@ -226,7 +220,8 @@ class AVL(BST):
         """
         TODO: Write your implementation
         """
-        balance_factor = node.right.height - node.left.height
+        balance_factor = self._get_height(node.right) - self._get_height(node.left)
+        print("balance factor", balance_factor)
         return balance_factor
 
 
@@ -235,78 +230,39 @@ class AVL(BST):
         """
         TODO: Write your implementation
         """
-        sub_root = node.parent
-        y = node.right
-        t2 = y.left
-        y.left = node
-        node.parent = y
-        node.right = t2
-        if t2 != None: t2.parent = node
-        y.parent = sub_root
-        if y.parent == None:
-            self.root = y
-        else:
-            if y.parent.left == node:
-                y.parent.left = y
-            else:
-                y.parent.right = y
-        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
-        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        c = node.right
+        node.right = c.left
+        if node.right is not None:
+            node.right.parent = node
+        c.left = node
+        node.parent = c
+        self._update_height(node)
+        self._update_height(c)
+        print("print ", c)
+        return c
 
     def _rotate_right(self, node: AVLNode) -> AVLNode:
         """
         TODO: Write your implementation
         """
-        sub_root = node.parent
-        y = node.left
-        t3 = y.right
-        y.right = node
-        node.parent = y
-        node.left = t3
-        if t3 is not None: t3.parent = node
-        y.parent = sub_root
-        if y.parent is None:
-            self.root = y
-        else:
-            if y.parent.left == node:
-                y.parent.left = y
-            else:
-                y.parent.right = y
-        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
-        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        c = node.left
+        node.left = c.right
+        if node.left is not None:
+            node.left.parent = node
+        c.right = node
+        node.parent = c
+        self._update_height(node)
+        self._update_height(c)
+        print("print ", c)
+        return c
         
     def _update_height(self, node: AVLNode) -> None:
         """
         TODO: Write your implementation
         """
-        if node.left is not None and node.right is not None:
-            if node.left.height > node.right.height:
-                node.height = node.left.height + 1
-            else:
-                node.height = node.right.height + 1
-        elif node.left is None and node.right is None:
-            node.height = 0
-        elif node.left is None:
-            node.height = node.right.height + 1
-        elif node.right is None:
-            node.height = node.left.height + 1
-
-        while node.parent is not None:
-            # parents are at least of height one
-            parent = node.parent
-            left, right = parent.left, parent.right
-            if left is not None and right is not None:
-                if left.height > right.height:
-                    parent.height = left.height + 1
-                else:
-                    parent.height = right.height + 1
-            elif right is None:
-                parent.height = left.height + 1
-            else:
-                parent.height = right.height + 1
 
 
-        # node.height = max(node.left.height, node.right.height) + 1
+        node.height = max(self._get_height(node.right), self._get_height(node.left)) + 1
 
 
 # ------------------- BASIC TESTING -----------------------------------------

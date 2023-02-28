@@ -105,14 +105,16 @@ class BST:
 
     def add(self, value: object, current_node=None) -> None:
         """
-        TODO: Write your implementation
+        This method adds new node to the tree
         """
-
+        # If root is empty
         if self._root is None:
             self._root = BSTNode(value)
             # print(self.is_valid_bst())
             return
         node = self._root
+
+        # If root is not empty
         while node is not None:
             if value < node.value:
                 if node.left is None:
@@ -131,14 +133,14 @@ class BST:
 
 
     def find(self, value):
+        """ Finds node with given value and returns boolean, node, its parent and its whether it right or left"""
         node = self._root
         parent_node = None
         child = None
         while node is not None:
-
             if node.value == value:
                 # print(node, parent_node, child)
-                return (True, node, parent_node, child)
+                return True, node, parent_node, child
             elif value < node.value:
                 parent_node = node
                 child = "left"
@@ -149,16 +151,18 @@ class BST:
                 node = node.right
         return False
     def inorder_successor_finder(self, node, parent_node=None):
-
+        """ Finds in order successor and return along with its parent"""
         if node.right:
             if node.right.left:
                 node = node.right
                 parent_node = node
+                # Keep looping till we get to leftmost
                 while node.left is not None:
                     parent_node = node
                     node = node.left
                 return node, parent_node
             else:
+                # If no right left node
                 return node.right, node
         elif node.left:
             return node.left, node
@@ -168,9 +172,8 @@ class BST:
 
     def remove(self, value: object) -> bool:
         """
-        TODO: Write your implementation
+        Removes node from the tree with the given value.
         """
-
         findResult = self.find(value)
         node = None
         parent_node = None
@@ -190,7 +193,8 @@ class BST:
 
         else:
             return False
-        #
+
+        # In this block we are calling corresponding functions depending on child quantity
         if node.left is None and node.right is None:
             return self._remove_no_subtrees(parent_node, node, whichChild)
         elif node.left is None or node.right is None:
@@ -202,10 +206,8 @@ class BST:
 
     def _remove_no_subtrees(self, parent_node: BSTNode, node: BSTNode, whichChild) -> None:
         """
-        TODO: Write your implementation
+        Removes node if there are no subtrees
         """
-        # remove node that has no subtrees (no left or right nodes)
-
         if parent_node:
             if whichChild == "left":
                 parent_node.left = None
@@ -222,7 +224,7 @@ class BST:
 
     def _remove_one_subtree(self, remove_parent: BSTNode, remove_node: BSTNode, whichChild) -> None:
         """
-        TODO: Write your implementation
+        Removes node with one subtree
         """
         # remove node that has a left or right subtree (only)
         if remove_parent:
@@ -254,18 +256,21 @@ class BST:
                 return True
 
 
-
     def _remove_two_subtrees(self, parent_node: BSTNode, node: BSTNode, whichChild) -> None:
         """
-        TODO: Write your implementation
+        Removes node with two subtrees
         """
+
+        # Establishing inorder successor and its parent
         inorder_successor_return = self.inorder_successor_finder(node)
         inorder_successor = inorder_successor_return[0]
         inorder_successor_parent = inorder_successor_return[1]
 
+        # If node pas a parent
         if parent_node:
-
+            # If node is its parent's left child
             if whichChild == "left":
+                # No left node of parent
                 if node.left is None:
                     if node.right.left is None:
                         parent_node.left = node.right
@@ -275,6 +280,7 @@ class BST:
                         inorder_successor.right = node.right
                         node.right.left = inorder_successor.right
                         return True
+                # Parent has a left node
                 elif node.left:
                     if node.right.left is None:
                         parent_node.left = node.right
@@ -286,9 +292,8 @@ class BST:
                         inorder_successor.left = node.left
                         node.right.left = inorder_successor.right
                         return True
-
+            # If its parent's right child
             elif whichChild == "right":
-
                 if node.left is None:
                     if node.right.left is None:
                         parent_node.right = node.right
@@ -299,7 +304,7 @@ class BST:
                         node.right.left = inorder_successor.right
                         return True
                 elif node.left:
-                    print("elif node.left section ")
+                    # print("elif node.left section ")
                     if node.right.left is None:
                         parent_node.right = node.right
                         node.right.left = node.left
@@ -310,76 +315,76 @@ class BST:
                         inorder_successor.left = node.left
                         node.right.left = inorder_successor.right
                         return True
+        # If node does not have a parent
         elif parent_node is None:
-            print("------------------IF NOT PARENT--------------------")
             # If we have inorder successor, which is node.right.left node
             if node.right.left:
-                print("PMski if section")
-# NEED HELP HERE     NEED HELP HERE  NEED HELP HERE    NEED HELP HERE    NEED HELP HERE
                 if inorder_successor.left is None and inorder_successor.right is None:
                     self._root.value = inorder_successor.value
                     inorder_successor_parent.left = None
                     inorder_successor = None
-
-                    print("What?")
                     return True
                 elif inorder_successor.left is None and inorder_successor.right:
-                    print("bottom")
+                    # print("bottom")
                     inorder_successor.left = node.left
                     inorder_successor_parent.left = inorder_successor.right
                     inorder_successor.right = node.right
                     self._root = inorder_successor
                     return True
+            # If we do not have inorder successor, which is node.right.left node
             elif node.right.left is None:
                 self._root.value = node.right.value
                 self._root.left = node.left
-
                 return True
 
 
     def contains(self, value: object) -> bool:
         """
-        TODO: Write your implementation
+        Checks if node with given value in tree. Returns boolean
         """
         result = self.find(value)
         if result:
-            return result[0]
+            return True
         else:
             return False
 
     def inorder_traversal(self, node=None) -> Queue:
         """
-        TODO: Write your implementation
+        Performs inorder traversal of the tree
         """
         return_queue = Queue()
         if self._root is None:
             return return_queue
 
-        # utilize recursive helper function in processing non-empty BST and return resulting Queue
+        #  using helper function for processing
         self.in_order_helper(self._root, return_queue)
         return return_queue
 
     def in_order_helper(self, node: object, return_queue: object) -> None:
-        # if node.left exists, navigate traversal to node.left then process current node
+        """
+        In order traversal method helper
+        """
+        # if node.left exists, go traversal to node.left then add current node
         if node.left is not None:
             self.in_order_helper(node.left, return_queue)
-
         # Add to queue node
         return_queue.enqueue(node.value)
-
         # if node.right exists, navigate traversal to node.right
         if node.right is not None:
             self.in_order_helper(node.right, return_queue)
 
     def find_min(self) -> object:
         """
-        TODO: Write your implementation
+        Returns the lowest value in tree
         """
         node = self._root
+        # If tree is empty
         if node is None:
             return None
+        # If no left child or right
         elif node.left is None and node.right is None:
             return node.value
+        # If no left child
         elif node.left is None and node.right:
             node = node.right
             while node.left is not None:
@@ -387,6 +392,7 @@ class BST:
             if self._root.value < node.value:
                 return self._root.value
             return node.value
+        # If right child
         elif node.left:
             while node.left is not None:
                 node = node.left
@@ -396,11 +402,13 @@ class BST:
 
     def find_max(self) -> object:
         """
-        TODO: Write your implementation
+        Returns the largest value in tree
         """
         node = self._root
+        # If tree is empty
         if node is None:
             return None
+
         elif node.right is None:
             return node.value
         else:
@@ -410,7 +418,7 @@ class BST:
 
     def is_empty(self) -> bool:
         """
-        TODO: Write your implementation
+        Returns boolean depending if tree empty or not
         """
         if self._root is None:
             return True
@@ -419,7 +427,7 @@ class BST:
 
     def make_empty(self) -> None:
         """
-        TODO: Write your implementation
+        Makes the tree empty
         """
         self._root = None
 
