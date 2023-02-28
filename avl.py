@@ -111,31 +111,18 @@ class AVL(BST):
             return
 
         node = self._root
-
+        new_node = AVLNode(value)
         while node is not None:
             if value < node.value:
                 if node.left is None:
-                    new_node = AVLNode(value)
                     node.left = new_node
                     new_node.parent = node
-                    parent = node
-                    while parent is not None:
-                        self._rebalance(parent)
-                        parent = parent.parent
-                    return
-
                 else:
                     node = node.left
             elif value > node.value:
                 if node.right is None:
-                    new_node = AVLNode(value)
                     node.right = new_node
                     new_node.parent = node
-                    parent = node
-                    while parent is not None:
-                        self._rebalance(parent)
-                        parent = parent.parent
-                    return
                 else:
                     node = node.right
             else:
@@ -143,10 +130,10 @@ class AVL(BST):
                 return
 
 
-        # while parent is not None:
-        #     print("Flag 1", parent)
-        #     self._rebalance(parent)
-        #     parent = parent.parent
+        while parent is not None:
+            print("Flag 1", parent)
+            self._rebalance(parent)
+            parent = parent.parent
 
 
     def _rebalance(self, node: AVLNode) -> None:

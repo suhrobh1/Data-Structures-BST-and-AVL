@@ -321,8 +321,6 @@ class BST:
             if node.right.left:
                 if inorder_successor.left is None and inorder_successor.right is None:
                     self._root.value = inorder_successor.value
-
-
                     return True
                 elif inorder_successor.left is None and inorder_successor.right:
                     # print("bottom")
