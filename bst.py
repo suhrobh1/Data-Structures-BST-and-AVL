@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name:Suhrob Hasanov
+# OSU Email: hasanovs@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
+# Assignment: Assignment 4
 # Due Date:
-# Description:
+# Description: Implementing BST
 
 
 import random

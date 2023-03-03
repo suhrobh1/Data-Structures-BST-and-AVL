@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name:Suhrob Hasanov
+# OSU Email: hasanovs@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
+# Assignment: Assignment 4
 # Due Date:
-# Description:
+# Description: Implementing AVL
 
 
 import random
@@ -106,34 +106,34 @@ class AVL(BST):
         pass
 
 
-        # if self._root is None:
-        #     self._root = AVLNode(value)
-        #     return
-        #
-        # node = self._root
-        # new_node = AVLNode(value)
-        # while node is not None:
-        #     if value < node.value:
-        #         if node.left is None:
-        #             node.left = new_node
-        #             new_node.parent = node
-        #         else:
-        #             node = node.left
-        #     elif value > node.value:
-        #         if node.right is None:
-        #             node.right = new_node
-        #             new_node.parent = node
-        #         else:
-        #             node = node.right
-        #     else:
-        #         print("value in tree")
-        #         return
-        #
-        #
-        # while parent is not None:
-        #     print("Flag 1", parent)
-        #     self._rebalance(parent)
-        #     parent = parent.parent
+        if self._root is None:
+            self._root = AVLNode(value)
+            return
+
+        node = self._root
+        new_node = AVLNode(value)
+        while node is not None:
+            if value < node.value:
+                if node.left is None:
+                    node.left = new_node
+                    new_node.parent = node
+                else:
+                    node = node.left
+            elif value > node.value:
+                if node.right is None:
+                    node.right = new_node
+                    new_node.parent = node
+                else:
+                    node = node.right
+            else:
+                print("value in tree")
+                return
+
+
+        while parent is not None:
+            print("Flag 1", parent)
+            self._rebalance(parent)
+            parent = parent.parent
 
 
     def _rebalance(self, node: AVLNode) -> None:
